@@ -10,8 +10,8 @@ import com.mygdx.ring_of_saturn.superclasses.Astro
 class Sun(  val main: ProjectMAIN,
             color: Color        = Color.YELLOW,
             colorLight: Color   = Color.WHITE,
-            radius: Int         = 36,
-            radiusLight: Float  = 500f,
+            radius: Int         = 80,
+            radiusLight: Float  = 750f,
             x: Float            = 0f,
             y: Float            = 0f
 

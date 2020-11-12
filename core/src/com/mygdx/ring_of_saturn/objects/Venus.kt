@@ -7,10 +7,10 @@ import com.mygdx.ring_of_saturn.superclasses.Planet
 
 class Venus(
         main: ProjectMAIN,
-        x: Float            = 300f,
+        x: Float            = 600f,
         y: Float            = 0f,
         color: Color        = Color.GRAY,
-        radius: Int         = 20
+        radius: Int         = 38
 ): Planet(main, x, y, radius, color) {
 
 }

@@ -20,9 +20,9 @@ class Stars (val quantity: Int) {
         val sprite: Sprite
 
         init {
-            val pixmap = Utils.createPixmap(7, 7).apply {
+            val pixmap = Utils.createPixmap(10, 10).apply {
                 setColor(1f, 1f, 1f, 1f)
-                fillRectangle(0, 0, 7, 7)
+                fillRectangle(0, 0, 10, 10)
             }
 
             sprite = Sprite(Texture(pixmap))

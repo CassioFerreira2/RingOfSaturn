@@ -9,18 +9,15 @@ import com.mygdx.ring_of_saturn.camera.CameraProcessor
 import com.mygdx.ring_of_saturn.inputs.Events
 import com.mygdx.ring_of_saturn.inputs.InputsProcessor
 import com.mygdx.ring_of_saturn.launcher.Launcher
-import com.mygdx.ring_of_saturn.objects.Saturn
-import com.mygdx.ring_of_saturn.objects.Stars
-import com.mygdx.ring_of_saturn.objects.Sun
-import com.mygdx.ring_of_saturn.objects.Venus
+import com.mygdx.ring_of_saturn.objects.*
 import com.mygdx.ring_of_saturn.superclasses.Planet
 import kotlin.math.cos
 
 class ProjectMAIN(val launcher: Launcher? = null) : ApplicationAdapter() {
 
     companion object {
-        val borderOfMapWidth  = 5000f
-        val borderOfMapHeight = 3500f
+        val borderOfMapWidth  = 11000f
+        val borderOfMapHeight = 9000f
         val borderOfMapX = -borderOfMapWidth
         val borderOfMapY = -borderOfMapHeight
 
@@ -38,6 +35,12 @@ class ProjectMAIN(val launcher: Launcher? = null) : ApplicationAdapter() {
     lateinit var sun: Sun
     lateinit var saturn: Saturn
     lateinit var venus: Venus
+    lateinit var mars: Mars
+    lateinit var jupiter: Jupiter
+    lateinit var neptune: Neptune
+    lateinit var uranus: Uranus
+    lateinit var earth: Earth
+    lateinit var mercury: Mercury
 
     lateinit var listOfPlanet: MutableList<Planet>
 
@@ -54,7 +57,7 @@ class ProjectMAIN(val launcher: Launcher? = null) : ApplicationAdapter() {
 
         camera.position.set(cameraPosition)
 
-        stars = Stars(725)
+        stars = Stars(1900)
         // Até onde irá as estrelas
         stars.x    = borderOfMapX
         stars.y    = borderOfMapY
@@ -65,8 +68,14 @@ class ProjectMAIN(val launcher: Launcher? = null) : ApplicationAdapter() {
         sun = Sun(this)
         saturn = Saturn(this)
         venus = Venus(this)
+        earth = Earth(this)
+        neptune = Neptune(this)
+        uranus = Uranus(this)
+        mars = Mars(this)
+        mercury = Mercury(this)
+        jupiter = Jupiter(this)
 
-        listOfPlanet = mutableListOf(saturn, venus)
+        listOfPlanet = mutableListOf(saturn, venus, venus, earth, neptune, uranus, mars, mercury, jupiter)
 
     }
 
@@ -81,8 +90,8 @@ class ProjectMAIN(val launcher: Launcher? = null) : ApplicationAdapter() {
         batch.begin()
         stars.draw(batch)
         sun.draw(batch)
-        saturn.draw(batch)
-        venus.draw(batch)
+        for(planet in listOfPlanet)
+            planet.draw(batch)
         batch.end()
 
         physicsAndChemistry.updateAndDraw()
@@ -91,8 +100,14 @@ class ProjectMAIN(val launcher: Launcher? = null) : ApplicationAdapter() {
         events.update()
         processor.reset()
 
-        orbit(saturn ,0.4f, 0f)
-        orbit(venus, 2f, 20f)
+        orbit(mercury, 2f, 0f)
+        orbit(venus, 1.4f, 190f)
+        orbit(earth, 1f, -75f)
+        orbit(mars, 0.72f, 24f)
+        orbit(jupiter, 0.6f, -02f)
+        orbit(saturn, 0.45f, 90f)
+        orbit(uranus, 0.25f, -100f)
+        orbit(neptune, 0.2f, 29f)
     }
 
     fun mouseViewPlanet() {

@@ -7,8 +7,8 @@ import com.mygdx.ring_of_saturn.superclasses.Planet
 
 class Saturn(
         main: ProjectMAIN,
-        override var x: Float = -1000f,
+        override var x: Float = -2200f,
         override var y: Float = 0f,
-        override var color: Color = Color.GOLDENROD,
-        override val radius: Int = 20
+        override var color: Color = Color.YELLOW,
+        override val radius: Int = 65
 ): Planet(main, x, y, radius, color)

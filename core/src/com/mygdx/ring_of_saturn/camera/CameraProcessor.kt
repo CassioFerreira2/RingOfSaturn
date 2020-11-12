@@ -14,7 +14,7 @@ class CameraProcessor(val main: ProjectMAIN): OrthographicCamera() {
     var ar = main.screenHeight / main.screenWidth
 
     var zoomVelocity = 0.15f
-    var maxZoom = 8
+    var maxZoom = 12
     var minZoom = 0.3f
 
     override fun update() {
@@ -66,7 +66,7 @@ class CameraProcessor(val main: ProjectMAIN): OrthographicCamera() {
         }
         val differenceX = touchX - previusX
         val differenceY = touchY - previusY
-        println(differenceX)
+
         position.x -= differenceX
         position.y += differenceY
 
