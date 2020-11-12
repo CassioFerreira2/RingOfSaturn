@@ -19,10 +19,10 @@ import kotlin.math.cos
 class ProjectMAIN(val launcher: Launcher? = null) : ApplicationAdapter() {
 
     companion object {
-        val borderOfMapWidth  = 2500f
-        val borderOfMapHeight = 1500f
-        val borderOfMapX = -2500f
-        val borderOfMapY = -1500f
+        val borderOfMapWidth  = 5000f
+        val borderOfMapHeight = 3500f
+        val borderOfMapX = -borderOfMapWidth
+        val borderOfMapY = -borderOfMapHeight
 
     }
 
@@ -39,6 +39,8 @@ class ProjectMAIN(val launcher: Launcher? = null) : ApplicationAdapter() {
     lateinit var saturn: Saturn
     lateinit var venus: Venus
 
+    lateinit var listOfPlanet: MutableList<Planet>
+
     private val cameraPosition = Vector3(0f, 0f, 0f)
 
     override fun create() {
@@ -52,7 +54,7 @@ class ProjectMAIN(val launcher: Launcher? = null) : ApplicationAdapter() {
 
         camera.position.set(cameraPosition)
 
-        stars = Stars(700)
+        stars = Stars(725)
         // Até onde irá as estrelas
         stars.x    = borderOfMapX
         stars.y    = borderOfMapY
@@ -61,12 +63,16 @@ class ProjectMAIN(val launcher: Launcher? = null) : ApplicationAdapter() {
         stars.generate()
 
         sun = Sun(this)
-        saturn = Saturn()
-        venus = Venus()
+        saturn = Saturn(this)
+        venus = Venus(this)
+
+        listOfPlanet = mutableListOf(saturn, venus)
+
     }
 
     override fun render() {
         physicsAndChemistry.universe.step(1/ 60f, 2, 6)
+        mouseViewPlanet()
 
         Gdx.gl.glClear(GL20.GL_COLOR_BUFFER_BIT)
 
@@ -87,6 +93,13 @@ class ProjectMAIN(val launcher: Launcher? = null) : ApplicationAdapter() {
 
         orbit(saturn ,0.4f, 0f)
         orbit(venus, 2f, 20f)
+    }
+
+    fun mouseViewPlanet() {
+        for (planet in listOfPlanet) {
+            if (planet.isMouseInside(processor.mouseMovedX.toFloat(), processor.mouseMovedY.toFloat(), 50f))
+                camera.viewFocus(planet.sprite)
+        }
     }
 
     fun orbit(planet: Planet, vel: Float, ang: Float) {

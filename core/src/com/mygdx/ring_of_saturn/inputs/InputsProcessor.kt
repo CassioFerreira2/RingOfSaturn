@@ -6,6 +6,9 @@ class InputsProcessor: InputProcessor {
 
     var scrolledAmount: Int = 0
 
+    var mouseMovedX: Int = 0
+    var mouseMovedY: Int = 0
+
     var draggedScreenX: Int = 0
     var draggedScreenY: Int = 0
 
@@ -44,6 +47,8 @@ class InputsProcessor: InputProcessor {
     }
 
     override fun mouseMoved(screenX: Int, screenY: Int): Boolean {
+        mouseMovedX = screenX
+        mouseMovedY = screenY
         return true
     }
 

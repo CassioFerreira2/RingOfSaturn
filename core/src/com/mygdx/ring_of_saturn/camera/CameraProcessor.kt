@@ -1,13 +1,15 @@
 package com.mygdx.ring_of_saturn.camera
 
+import com.badlogic.gdx.Gdx
 import com.badlogic.gdx.graphics.OrthographicCamera
+import com.badlogic.gdx.graphics.g2d.Sprite
 import com.mygdx.ring_of_saturn.inputs.InputsProcessor
 import com.mygdx.ring_of_saturn.ProjectMAIN
 
 class CameraProcessor(val main: ProjectMAIN): OrthographicCamera() {
     var processor: InputsProcessor? = main.processor
-    var unitsWidth  = 1500f
-    var unitsHeight = 1500f
+    var unitsWidth  = 1300f
+    var unitsHeight = 1300f
 
     var ar = main.screenHeight / main.screenWidth
 
@@ -30,13 +32,13 @@ class CameraProcessor(val main: ProjectMAIN): OrthographicCamera() {
                 moveScreen(processor!!.draggedScreenX, processor!!.draggedScreenY)
 
                 // Verificação se a camera não está fora das bordas
-                if (position.x > ProjectMAIN.borderOfMapWidth - viewportWidth)
+                if (position.x + viewportWidth > ProjectMAIN.borderOfMapWidth - viewportWidth)
                     position.x = position.x - viewportWidth
-                if (position.x < ProjectMAIN.borderOfMapX + viewportWidth)
+                if (position.x - viewportWidth < ProjectMAIN.borderOfMapX + viewportWidth)
                     position.x = position.x + viewportWidth
-                if (position.y > ProjectMAIN.borderOfMapHeight - viewportHeight)
+                if (position.y + viewportHeight > ProjectMAIN.borderOfMapHeight - viewportHeight)
                     position.y = position.y - viewportHeight
-                if (position.y < ProjectMAIN.borderOfMapY + viewportHeight)
+                if (position.y - viewportHeight < ProjectMAIN.borderOfMapY + viewportHeight)
                     position.y = position.y + viewportWidth
             }
 
@@ -64,7 +66,7 @@ class CameraProcessor(val main: ProjectMAIN): OrthographicCamera() {
         }
         val differenceX = touchX - previusX
         val differenceY = touchY - previusY
-
+        println(differenceX)
         position.x -= differenceX
         position.y += differenceY
 
@@ -81,5 +83,11 @@ class CameraProcessor(val main: ProjectMAIN): OrthographicCamera() {
         ar = main.screenHeight / main.screenWidth
         this.viewportWidth  = unitsWidth
         this.viewportHeight = unitsHeight * ar
+    }
+
+    fun viewFocus(sprite: Sprite) {
+        this.position.x = sprite.x + sprite.width / 2
+        this.position.y = sprite.y + sprite.height / 2
+
     }
 }

@@ -45,6 +45,7 @@ class CircularObject(
 
     init {
         sprite.setPosition(x, y)
+        sprite.setOriginCenter()
     }
 
 }
