@@ -12,6 +12,7 @@ import com.mygdx.ring_of_saturn.launcher.Launcher
 import com.mygdx.ring_of_saturn.objects.Saturn
 import com.mygdx.ring_of_saturn.objects.Stars
 import com.mygdx.ring_of_saturn.objects.Sun
+import com.mygdx.ring_of_saturn.objects.Venus
 import com.mygdx.ring_of_saturn.superclasses.Planet
 import kotlin.math.cos
 
@@ -36,6 +37,7 @@ class ProjectMAIN(val launcher: Launcher? = null) : ApplicationAdapter() {
     lateinit var physicsAndChemistry: PhysicsAndChemistry
     lateinit var sun: Sun
     lateinit var saturn: Saturn
+    lateinit var venus: Venus
 
     private val cameraPosition = Vector3(0f, 0f, 0f)
 
@@ -60,6 +62,7 @@ class ProjectMAIN(val launcher: Launcher? = null) : ApplicationAdapter() {
 
         sun = Sun(this)
         saturn = Saturn()
+        venus = Venus()
     }
 
     override fun render() {
@@ -73,6 +76,7 @@ class ProjectMAIN(val launcher: Launcher? = null) : ApplicationAdapter() {
         stars.draw(batch)
         sun.draw(batch)
         saturn.draw(batch)
+        venus.draw(batch)
         batch.end()
 
         physicsAndChemistry.updateAndDraw()
@@ -81,11 +85,12 @@ class ProjectMAIN(val launcher: Launcher? = null) : ApplicationAdapter() {
         events.update()
         processor.reset()
 
-        orbit(saturn)
+        orbit(saturn ,0.4f, 0f)
+        orbit(venus, 2f, 20f)
     }
 
-    fun orbit(planet: Planet) {
-        planet.orbit(0f, 0.4f)
+    fun orbit(planet: Planet, vel: Float, ang: Float) {
+        planet.orbit(ang, vel)
     }
 
     override fun resize(width: Int, height: Int) {

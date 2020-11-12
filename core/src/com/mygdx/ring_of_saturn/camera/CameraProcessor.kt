@@ -13,7 +13,7 @@ class CameraProcessor(val main: ProjectMAIN): OrthographicCamera() {
 
     var zoomVelocity = 0.15f
     var maxZoom = 8
-    var minZoom = 0.8f
+    var minZoom = 0.3f
 
     override fun update() {
         super.update()
